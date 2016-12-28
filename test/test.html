@@ -2,80 +2,112 @@
 <html lang="en" ng-app="TestApp">
 <head>
   <meta charset="UTF-8">
-  <title>dx-loading</title>
+  <title>Title</title>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <meta content="telephone=no" name="format-detection"/>
+  <link rel="stylesheet" type="text/css" href="../dist/css/nav-items.css"/>
   <style type="text/css">
     body {
       font-family: 'STHeiti', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
     }
 
-    .loading-widget {
-      width: 100px;
-      height: 100px;
-      margin: auto;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      position: absolute;
-    }
-
-    .loading-widget,
-    .loading-widget[data-visible] {
+    [ng-cloak] {
       display: none;
     }
 
-    .loading-widget[data-visible=true] {
-      display: block;
+    .header [data-active] {
+      cursor: pointer;
+      display: inline-block;
+      width: 25%;
+      border-bottom: 2px solid transparent;;
+      text-align: center;
+      height: 30px;
+      line-height: 30px;
+      transition: all .5s;
     }
 
-    .loading-widget img {
-      width: 100%;
-      height: 100%;
+    .header [data-active=true] {
+      color: #f00;
+      border-color: #f00;
+    }
+
+    .body .ng-widget-tab {
+      border: 1px solid #00f;
+      padding: 20px;
+    }
+
+    .body [data-active] {
+      display: none;
+    }
+
+    .body [data-active=true] {
+      display: block;
     }
   </style>
 </head>
-<body ng-controller="MainCtrl">
+<body ng-controller="MainCtrl" ng-cloak>
+<!--<nx-nav-items items="items" active-index="activeIndex" select="mySelectFn()" css-class="header">-->
+  <nx-nav-items items="items" active-index="activeIndex" css-class="header">
+  <nx-nav-item ng-repeat="item in items">
+    <a href="#tab{{$index}}">{{item.title}}</a>
+  </nx-nav-item>
+</nx-nav-items>
 
-<div class="loading-widget"
-     isloading
-     loading="loading"
-     data-visible="{{loading}}"
->
-  <img src="svg/default.svg" alt="">
-</div>
+<nx-nav-items items="items1" active-index="activeIndex" css-class="body">
+  <nx-nav-item ng-repeat="item in items1">{{item.content}}</nx-nav-item>
+</nx-nav-items>
+
 
 <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="../dist/js/angular-dx-loading.js"></script>
+<script type="text/javascript"
+        src="../bower_components/angular-module-stiffener/dist/angular-module-stiffener.min.js"></script>
+<script type="text/javascript" src="../dist/js/angular-nav-items.js"></script>
 <script type="text/javascript">
-  angular.module('TestApp', ['dx.plugIn']).controller('MainCtrl', function ($http, $q, $rootScope, $timeout) {
-    $rootScope.loading = true;
-    var s1 = $http.get('http://www.baidu.com');
-    var s2 = $http.get('http://www.sina.com');
-    var s3 = $http.get('http://www.163.com');
-    var s4 = $http.get('http://www.qq.com');
-    var s5 = $http.get('http://www.hao123.com');
-    $q.all([s1, s2, s3, s4, s5]).then(function (responses) {
-      console.log(responses);
+  var TestModule = angular.module('TestApp', ['nx.widget'])
+    .controller('MainCtrl', function ($timeout, $scope) {
+
+      $scope.items = [];
+      $scope.mySelectFn = function () {
+        return function (inItem) {
+          console.log('224', inItem);
+        }
+      };
       $timeout(function () {
-        $rootScope.loading = false
-      }, 2000);
-    })
-  })
-    .controller('MainCtrl2', function ($http, $q, $rootScope, dxLoading) {
-      $rootScope.$watch(dxLoading.isLoading, function (inValue) {
-        $rootScope.loading = inValue;
-      });
-      var s1 = $http.get('http://www.baidu.com');
-      var s2 = $http.get('http://www.sina.com');
-      var s3 = $http.get('http://www.163.com');
-      var s4 = $http.get('http://www.qq.com');
-      var s5 = $http.get('http://www.hao123.com');
-      $q.all([s1, s2, s3, s4, s5]).then(function (responses) {
-        console.log(responses);
-      })
+        $scope.items = [
+          {
+            title: '首页'
+          },
+          {
+            title: '商城'
+          },
+          {
+            title: '活动'
+          },
+          {
+            title: '我的'
+          }
+        ]
+
+        $scope.activeIndex = 0;
+      }, 10);
+
+      $scope.items1 = [
+        {
+          content: '首页内容'
+        },
+        {
+          content: '商城内容'
+        },
+        {
+          content: '活动内容'
+        },
+        {
+          content: '我的内容'
+        }
+      ];
+
+
     });
 </script>
 </body>
