@@ -1,11 +1,11 @@
 {
-  "name": "angular-active-items",
+  "name": "angular-nav-items",
   "version": "1.0.0",
   "description": "AngularJS directive used to build abstract active items.",
-  "homepage": "https://github.com/afeiship/angular-active-items",
+  "homepage": "https://github.com/smalleast/angular-nav-items",
   "author": {
-    "name": "afei",
-    "email": "1290657123@qq.com"
+    "name": "tony",
+    "email": "382026180@qq.com"
   },
   "license": "MIT",
   "devDependencies": {

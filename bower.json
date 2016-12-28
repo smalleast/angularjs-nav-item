@@ -1,9 +1,9 @@
 {
-  "name": "angular-active-items",
+  "name": "angular-nav-items",
   "description": "AngularJS directive used to build abstract active items.",
-  "main": "dist/js/angular-active-items.js",
+  "main": "dist/js/angular-nav-items.js",
   "authors": [
-    "afei"
+    "tony"
   ],
   "license": "MIT",
   "keywords": [
@@ -11,7 +11,7 @@
     "tab",
     "angular"
   ],
-  "homepage": "https://github.com/afeiship/angular-active-items",
+  "homepage": "https://github.com/smalleast/angular-nav-items",
   "moduleType": [
     "amd"
   ],
@@ -25,6 +25,6 @@
   ],
   "dependencies": {
     "angular": "^1.5.5",
-    "angular-module-stiffener": "afeiship/angular-module-stiffener"
+    "angular-module-stiffener": "smalleast/angular-module-stiffener"
   }
 }
