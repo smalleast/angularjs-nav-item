@@ -5,13 +5,13 @@ AngularJS directive used to build abstract active items.
 + html part:
 ```html
 
-<nx-active-items items="items" active-index="activeIndex" css-class="header">
-  <nx-active-item ng-repeat="item in items">{{item.title}}</nx-active-item>
-</nx-active-items>
+<nx-nav-items items="items" active-index="activeIndex" css-class="header">
+  <nx-nav-item ng-repeat="item in items">{{item.title}}</nx-nav-item>
+</nx-nav-items>
 
-<nx-active-items items="items1" active-index="activeIndex" css-class="body">
-  <nx-active-item ng-repeat="item in items1">qeqwewq{{item.content}}</nx-active-item>
-</nx-active-items>
+<nx-nav-items items="items1" active-index="activeIndex" css-class="body">
+  <nx-nav-item ng-repeat="item in items1">qeqwewq{{item.content}}</nx-nav-item>
+</nx-nav-items>
 
 ```
 

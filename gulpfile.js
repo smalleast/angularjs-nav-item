@@ -7,14 +7,28 @@
 'use strict';
 
 var gulp = require('gulp');
+var path = require('path');
+var sass = require('gulp-sass');
 var del = require('del');
+var autoprefixer = require('gulp-autoprefixer');
+var debug = require('gulp-debug');
+var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
 var concat = require('gulp-concat');
+var rename = require('gulp-rename');
+var cssmin = require('gulp-minify-css');
+var config = {
+  sassOptions: {
+    outputStyle: 'expanded' /* nested | expanded | compact | compressed */
+  },
+  src: './src',
+  dist: './dist/css'
+};
+
 var scripts = [
-  'src/bower/main.js',
-  'src/bower/directive/dx-loading.js',
-  'src/bower/service/dx-loading.js'
+  './src/bower/main.js',
+  './src/bower/directive/nav-item.js',
+  './src/bower/directive/nav-items.js'
 ];
 
 
@@ -22,10 +36,25 @@ gulp.task('clean', function () {
   return del('dist');
 });
 
+gulp.task('sass', function () {
+  return gulp.src(config.src + '/scss/nav-items.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass(config.sassOptions).on('error', sass.logError))
+    .pipe(autoprefixer('last 2 version'))
+    .pipe(gulp.dest(config.dist))
+    .pipe(cssmin())
+    .pipe(rename({
+      suffix: ".min",
+      extname: ".css"
+    }))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(config.dist));
+});
+
 
 gulp.task('scripts', function () {
   return gulp.src(scripts)
-    .pipe(concat('angular-dx-loading.js'))
+    .pipe(concat('angular-nav-items.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(uglify())
     .pipe(rename({
@@ -36,5 +65,5 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('default', ['clean'], function () {
-  gulp.start(['scripts']);
+  gulp.start(['sass', 'scripts']);
 });

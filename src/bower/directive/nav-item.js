@@ -2,11 +2,11 @@
   'use strict';
 
   angular.module('nx.widget')
-    .directive('nxActiveItem', [function () {
+    .directive('nxNavItem', [function () {
       return {
         restrict: 'E',
         transclude: true,
-        template: '<div class="nx-widget-active-item" data-active="{{item.active}}" ng-transclude></div>',
+        template: '<div class="nx-widget-nav-item" data-active="{{item.active}}" ng-transclude></div>',
         link: linkFn
       };
 
